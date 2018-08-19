@@ -1,0 +1,17 @@
+name:             minidef
+version:          0.1
+license:          BSD3
+cabal-version:    >= 2.0
+build-type:       Simple
+
+library mini
+    default-language:   Haskell2010
+    exposed-modules:    Sll, SllIo, SllUtil, Treeless
+    build-depends:      base
+
+test-suite test-minidef
+    default-language:   Haskell2010
+    type:               exitcode-stdio-1.0
+    main-is:            TreelessTest.hs
+    other-modules:      Sll, SllIo, SllUtil, Treeless
+    build-depends:      mini, base, tasty, tasty-hunit
