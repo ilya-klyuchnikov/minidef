@@ -26,3 +26,5 @@ tt ::= v
 
 **Deforestation Theorem**.
 Every composition of functions with treeless definitions can be effectively transformed to a single function with a treeless definition, without loss of efficiency.
+
+The input to the Deforestation Algorithm is a linear term consisting of variables and functions with treeless definitions. The output is an equivalent treeless term and a (possibly empty) collection of treeless definitions.
