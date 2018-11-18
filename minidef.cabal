@@ -4,14 +4,14 @@ license:          BSD3
 cabal-version:    >= 2.0
 build-type:       Simple
 
-library mini
+library minidef-lib
     default-language:   Haskell2010
     exposed-modules:    Sll, SllIo, SllUtil, Treeless
     build-depends:      base
 
-test-suite test-minidef
+test-suite minidef-test
     default-language:   Haskell2010
     type:               exitcode-stdio-1.0
     main-is:            tests/Tests.hs
     other-modules:      Sll, SllIo, SllUtil, Treeless
-    build-depends:      mini, base, tasty, tasty-hunit
+    build-depends:      minidef-lib, base, tasty, tasty-hunit
