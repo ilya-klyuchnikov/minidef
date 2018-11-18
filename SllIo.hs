@@ -1,7 +1,6 @@
 module SllIo where
 
 import Sll
--- import SllUtil
 import Data.Maybe
 import Data.Char
 
@@ -70,18 +69,6 @@ readP1 p@(Program fs gs) s = next (readFDef s) (readGDef s) where
   next _ [(g, s1)] = readP1 (Program fs (gs++[g])) s1
   next _ _ = (p, s)
 
-printTree t = unlines $ take 1000 $ pprintTree "" "" t
-
-pprintTree :: (Show a) => String -> String -> Graph a -> [String]
-pprintTree indent msg (Node expr next) = make next where
-  make (Fold _ ren) = (indent ++ msg) : [indent ++ "|__" ++  (show expr) ++ "__↑" ++ (show ren)]
-  make (Transient t) = (indent ++ msg) : (indent ++ "|__" ++ show expr) : (pprintTree (indent ++ " ") "|" t)
-  make (Decompose _ ts) = (indent ++ msg) :  (indent ++ "|__" ++ show expr): (concat (map (pprintTree (indent ++ " ") "|") ts))
-  make (Variants cs) =
-    (indent ++ msg) :  (indent ++ "|__" ++  show expr) : (concat (map (\(x, t) -> pprintTree (indent ++ " ") ("?" ++ show x) t) cs))
-  make Stop = (indent ++ msg) : [indent ++ "|__" ++  (show expr)]
-
-
 instance Show Expr where
   show (Var v) = show v
   show (Ctr n es) = n ++ "(" ++ (intercalate ", " (map show es)) ++ ")"
@@ -90,7 +77,6 @@ instance Show Expr where
 
 instance Show Variable where
   show (NVar n) = n
-  show (SVar sel v) = (show v) ++ "." ++ sel
 
 fn :: String -> String
 fn (_:s:ss) = (toLower s) : ss
@@ -104,17 +90,8 @@ instance Show GDef where
 instance Show Pat where
   show (Pat cn vs) = cn ++ "(" ++ intercalate "," (map show vs) ++ ")"
 
-instance Show Contraction where
-  show (Contraction v p) = (show v) ++ " == " ++ (show p)
-
 instance Show Program where
   show (Program fs gs) = intercalate "\n" $ (map show fs) ++ (map show gs)
-
-instance Show a => Show (Step a) where
-  show (Transient a) = "=> " ++ (show a)
-  show (Variants vs) = intercalate "\n" $ map (\(c, e) -> (show c) ++ " => " ++ (show e)) vs
-  show (Stop) = "!"
-  show (Decompose _ ds) = show ds
 
 readSllProgram :: String -> Program
 readSllProgram = read

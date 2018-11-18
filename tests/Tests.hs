@@ -6,7 +6,6 @@ import Text.RawString.QQ
 import Sll
 import SllIo
 import SllTreeless
-import SllUtil
 
 import Test.Tasty (defaultMain, testGroup)
 import Test.Tasty.HUnit (assertEqual, testCase)
