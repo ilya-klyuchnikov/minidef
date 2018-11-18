@@ -11,7 +11,7 @@ readName1 :: ReadS Name
 readName1 i = concat [lex s1 | (",", s1) <- lex i]
 
 readVar1 :: ReadS Variable
-readVar1 i = [(NVar n, s) | (n, s) <- readName1 i]
+readVar1 i = [(n, s) | (n, s) <- readName1 i]
 
 instance Read Expr where
   readsPrec _ s = readsExpr s
@@ -27,7 +27,7 @@ readsExpr i = catMaybes [merge n (readArgs s)  s | (n, s) <- lex i] where
   merge n@('g':_) [(args, s1)] _ = Just (GCall n args, s1)
   merge n@('f':_) [(args, s1)] _ = Just (FCall n args, s1)
   merge n@(x:_) [(args, s1)] _ | isUpper x = Just (Ctr n args, s1)
-  merge n@(x:_) [] s | isLower x = Just (Var $ NVar n, s)
+  merge n@(x:_) [] s | isLower x = Just (Var n, s)
   merge _ _ _ = Nothing
 
 readArgs :: ReadS [Expr]
@@ -37,7 +37,7 @@ readNames :: ReadS [Name]
 readNames = readP_to_S $ between (char '(') (char ')') (sepBy (readS_to_P lex) (char ','))
 
 readVars :: ReadS [Variable]
-readVars i = [ (map NVar ns, s) | (ns, s) <- readNames i]
+readVars i = [ (ns, s) | (ns, s) <- readNames i]
 
 readFDef :: ReadS FDef
 readFDef i = [ (FDef n vars body, s4) |
@@ -74,9 +74,6 @@ instance Show Expr where
   show (Ctr n es) = n ++ "(" ++ (intercalate ", " (map show es)) ++ ")"
   show (FCall n es) = (fn n) ++ "(" ++ (intercalate ", " (map show es)) ++ ")"
   show (GCall n es) = (fn n) ++ "(" ++ (intercalate ", " (map show es)) ++ ")"
-
-instance Show Variable where
-  show (NVar n) = n
 
 fn :: String -> String
 fn (_:s:ss) = (toLower s) : ss
