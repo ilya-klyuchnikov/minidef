@@ -1,4 +1,4 @@
-module Treeless where
+module SllTreeless where
 
 import Sll
 import Data.List

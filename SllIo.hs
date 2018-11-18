@@ -115,3 +115,6 @@ instance Show a => Show (Step a) where
   show (Variants vs) = intercalate "\n" $ map (\(c, e) -> (show c) ++ " => " ++ (show e)) vs
   show (Stop) = "!"
   show (Decompose _ ds) = show ds
+
+readSllProgram :: String -> Program
+readSllProgram = read

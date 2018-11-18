@@ -6,12 +6,12 @@ build-type:       Simple
 
 library minidef-lib
     default-language:   Haskell2010
-    exposed-modules:    Sll, SllIo, SllUtil, Treeless
+    exposed-modules:    Sll, SllIo, SllTreeless, SllUtil
     build-depends:      base
 
 test-suite minidef-test
     default-language:   Haskell2010
     type:               exitcode-stdio-1.0
     main-is:            tests/Tests.hs
-    other-modules:      Sll, SllIo, SllUtil, Treeless
-    build-depends:      minidef-lib, base, tasty, tasty-hunit
+    other-modules:      Sll, SllIo, SllTreeless, SllUtil
+    build-depends:      minidef-lib, base, raw-strings-qq, tasty, tasty-hunit
