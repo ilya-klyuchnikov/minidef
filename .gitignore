@@ -1,3 +1,4 @@
 dist-newstyle/
+private-notes/
 cabal.project.local
 .ghc.environment.*
