@@ -12,6 +12,6 @@ library minidef-lib
 test-suite minidef-test
     default-language:   Haskell2010
     type:               exitcode-stdio-1.0
-    main-is:            tests/Tests.hs
+    main-is:            tests/SllTests.hs
     other-modules:      Sll, SllIo
     build-depends:      minidef-lib, base, raw-strings-qq, tasty, tasty-hunit
